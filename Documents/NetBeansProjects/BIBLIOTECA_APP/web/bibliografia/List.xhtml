@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="BibliografiaListForm">
+
+        <p:panel header="#{pROPIEDADES.ListBibliografiaTitle}">
+            <p:contextMenu id="BibliografiaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{pROPIEDADES.Create}" onclick="document.getElementById('BibliografiaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{pROPIEDADES.View}" onclick="document.getElementById('BibliografiaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{pROPIEDADES.Edit}" onclick="document.getElementById('BibliografiaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{pROPIEDADES.Delete}" onclick="document.getElementById('BibliografiaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{pROPIEDADES.BibliografiaMenuItem_detalleBiblioFacuCollection}" icon="ui-icon-search"  action="#{bibliografiaController.navigateDetalleBiblioFacuCollection}" disabled="#{empty bibliografiaController.selected.detalleBiblioFacuCollection}" ajax="false"/>  
+                <p:menuitem value="#{pROPIEDADES.BibliografiaMenuItem_areaCodigo}" icon="ui-icon-search"  actionListener="#{bibliografiaController.prepareAreaCodigo}" update=":AreaViewForm" oncomplete="PF('AreaViewDialog').show()" disabled="#{empty bibliografiaController.selected.areaCodigo}"/>  
+                <p:menuitem value="#{pROPIEDADES.BibliografiaMenuItem_autorCodigo}" icon="ui-icon-search"  actionListener="#{bibliografiaController.prepareAutorCodigo}" update=":AutorViewForm" oncomplete="PF('AutorViewDialog').show()" disabled="#{empty bibliografiaController.selected.autorCodigo}"/>  
+                <p:menuitem value="#{pROPIEDADES.BibliografiaMenuItem_tibiCodigo}" icon="ui-icon-search"  actionListener="#{bibliografiaController.prepareTibiCodigo}" update=":TipoBibliografiaViewForm" oncomplete="PF('TipoBibliografiaViewDialog').show()" disabled="#{empty bibliografiaController.selected.tibiCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{bibliografiaController.items}"
+                         lazy="false"
+                         rowKey="#{item.biblCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{bibliografiaController.selected}">
+               
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BibliografiaDataTableContextMenu" listener="#{bibliografiaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:BibliografiaDataTableContextMenu" listener="#{bibliografiaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{bibliografiaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('BibliografiaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.biblCodigo}" filterBy="#{item.biblCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblTitulo}" filterBy="#{item.biblTitulo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblTitulo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblTitulo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblEditorial}" filterBy="#{item.biblEditorial}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblEditorial}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblEditorial}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblFechaPublicacion}" filterBy="#{item.biblFechaPublicacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblFechaPublicacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblFechaPublicacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblIdioma}" filterBy="#{item.biblIdioma}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblIdioma}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblIdioma}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblDescripcion}" filterBy="#{item.biblDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_biblDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblDescripcion}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.areaCodigo.areaCodigo}" filterBy="#{item.areaCodigo.areaCodigo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_areaCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.areaCodigo.areaCodigo}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.autorCodigo.autorDescripcion}" filterBy="#{item.autorCodigo.autorDescripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_autorCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.autorCodigo.autorDescripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.tibiCodigo.tibiCodigo}" filterBy="#{item.tibiCodigo.tibiCodigo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListBibliografiaTitle_tibiCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tibiCodigo.tibiCodigo}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{pROPIEDADES.Create}" actionListener="#{bibliografiaController.prepareCreate}" update=":BibliografiaCreateForm" oncomplete="PF('BibliografiaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{pROPIEDADES.View}" update=":BibliografiaViewForm" oncomplete="PF('BibliografiaViewDialog').show()" disabled="#{empty bibliografiaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{pROPIEDADES.Edit}" update=":BibliografiaEditForm" oncomplete="PF('BibliografiaEditDialog').show()" disabled="#{empty bibliografiaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{pROPIEDADES.Delete}" actionListener="#{bibliografiaController.delete}" update=":growl,datalist" disabled="#{empty bibliografiaController.selected}">
+                <p:confirm header="#{pROPIEDADES.ConfirmationHeader}" message="#{pROPIEDADES.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DetallePrestamoCreatePage" lazy="true">
+        <pm:header title="#{pROPIEDADES.CreateDetallePrestamoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DetallePrestamoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DetallePrestamoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detallePrestamoController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetallePrestamoLabel_deprEstado}" for="deprEstado" />
+                            <p:inputText id="deprEstado" value="#{detallePrestamoController.selected.deprEstado}" title="#{pROPIEDADES.CreateDetallePrestamoTitle_deprEstado}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetallePrestamoLabel_dtbfCodigo}" for="dtbfCodigo" />
+                            <p:selectOneMenu id="dtbfCodigo" value="#{detallePrestamoController.selected.dtbfCodigo}"  converter="detalleBiblioFacuConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{detalleBiblioFacuController.items}"
+                                               var="dtbfCodigoItem"
+                                               itemValue="#{dtbfCodigoItem}"
+                                               itemLabel="#{dtbfCodigoItem.dtbfCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetallePrestamoLabel_presCodigo}" for="presCodigo" />
+                            <p:selectOneMenu id="presCodigo" value="#{detallePrestamoController.selected.presCodigo}"  converter="prestamoConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{prestamoController.items}"
+                                               var="presCodigoItem"
+                                               itemValue="#{presCodigoItem}"
+                                               itemLabel="#{presCodigoItem.presCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{detallePrestamoController.saveNew}" value="#{pROPIEDADES.Save}" update="display,:DetallePrestamoListPage:DetallePrestamoListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:DetallePrestamoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
