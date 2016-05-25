@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="BibliografiaEditPage" lazy="true">
+        <pm:header title="#{pROPIEDADES.EditBibliografiaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:BibliografiaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="BibliografiaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{bibliografiaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblCodigo}" for="biblCodigo" />
+                            <h:outputText id="biblCodigo" value="#{bibliografiaController.selected.biblCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblTitulo}" for="biblTitulo" />
+                            <p:inputText id="biblTitulo" value="#{bibliografiaController.selected.biblTitulo}" title="#{pROPIEDADES.EditBibliografiaTitle_biblTitulo}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblEditorial}" for="biblEditorial" />
+                            <p:inputText id="biblEditorial" value="#{bibliografiaController.selected.biblEditorial}" title="#{pROPIEDADES.EditBibliografiaTitle_biblEditorial}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblFechaPublicacion}" for="biblFechaPublicacion" />
+                            <p:calendar id="biblFechaPublicacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{bibliografiaController.selected.biblFechaPublicacion}" title="#{pROPIEDADES.EditBibliografiaTitle_biblFechaPublicacion}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblIdioma}" for="biblIdioma" />
+                            <p:inputText id="biblIdioma" value="#{bibliografiaController.selected.biblIdioma}" title="#{pROPIEDADES.EditBibliografiaTitle_biblIdioma}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_biblDescripcion}" for="biblDescripcion" />
+                            <p:inputText id="biblDescripcion" value="#{bibliografiaController.selected.biblDescripcion}" title="#{pROPIEDADES.EditBibliografiaTitle_biblDescripcion}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_areaCodigo}" for="areaCodigo" />
+                            <p:selectOneMenu id="areaCodigo" value="#{bibliografiaController.selected.areaCodigo}"  converter="areaConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{areaController.items}"
+                                               var="areaCodigoItem"
+                                               itemValue="#{areaCodigoItem}"
+                                               itemLabel="#{areaCodigoItem.areaCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_autorCodigo}" for="autorCodigo" />
+                            <p:selectOneMenu id="autorCodigo" value="#{bibliografiaController.selected.autorCodigo}"  converter="autorConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{autorController.items}"
+                                               var="autorCodigoItem"
+                                               itemValue="#{autorCodigoItem}"
+                                               itemLabel="#{autorCodigoItem.autorDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.EditBibliografiaLabel_tibiCodigo}" for="tibiCodigo" />
+                            <p:selectOneMenu id="tibiCodigo" value="#{bibliografiaController.selected.tibiCodigo}"  converter="tipoBibliografiaConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoBibliografiaController.items}"
+                                               var="tibiCodigoItem"
+                                               itemValue="#{tibiCodigoItem}"
+                                               itemLabel="#{tibiCodigoItem.tibiCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{bibliografiaController.save}" value="#{pROPIEDADES.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:BibliografiaListPage:BibliografiaListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:BibliografiaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

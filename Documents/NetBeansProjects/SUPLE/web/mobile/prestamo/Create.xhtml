@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PrestamoCreatePage" lazy="true">
+        <pm:header title="#{pROPIEDADES.CreatePrestamoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PrestamoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PrestamoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{prestamoController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presFechaReserva}" for="presFechaReserva" />
+                            <p:calendar id="presFechaReserva" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaReserva}" title="#{pROPIEDADES.CreatePrestamoTitle_presFechaReserva}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presFechaFinReserva}" for="presFechaFinReserva" />
+                            <p:calendar id="presFechaFinReserva" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaFinReserva}" title="#{pROPIEDADES.CreatePrestamoTitle_presFechaFinReserva}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presFechaEntrega}" for="presFechaEntrega" />
+                            <p:calendar id="presFechaEntrega" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaEntrega}" title="#{pROPIEDADES.CreatePrestamoTitle_presFechaEntrega}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presFechaMaxRecepcion}" for="presFechaMaxRecepcion" />
+                            <p:calendar id="presFechaMaxRecepcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaMaxRecepcion}" title="#{pROPIEDADES.CreatePrestamoTitle_presFechaMaxRecepcion}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presEstado}" for="presEstado" />
+                            <p:inputText id="presEstado" value="#{prestamoController.selected.presEstado}" title="#{pROPIEDADES.CreatePrestamoTitle_presEstado}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presObservacion}" for="presObservacion" />
+                            <p:inputText id="presObservacion" value="#{prestamoController.selected.presObservacion}" title="#{pROPIEDADES.CreatePrestamoTitle_presObservacion}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_presFechaRecepcion}" for="presFechaRecepcion" />
+                            <p:calendar id="presFechaRecepcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaRecepcion}" title="#{pROPIEDADES.CreatePrestamoTitle_presFechaRecepcion}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreatePrestamoLabel_userCodigo}" for="userCodigo" />
+                            <p:selectOneMenu id="userCodigo" value="#{prestamoController.selected.userCodigo}"  converter="usuarioConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{usuarioController.items}"
+                                               var="userCodigoItem"
+                                               itemValue="#{userCodigoItem}"
+                                               itemLabel="#{userCodigoItem.userUsername.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{prestamoController.saveNew}" value="#{pROPIEDADES.Save}" update="display,:PrestamoListPage:PrestamoListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:PrestamoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

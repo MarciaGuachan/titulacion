@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleBiblioFacuViewDlg" widgetVar="DetalleBiblioFacuViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{pROPIEDADES.ViewDetalleBiblioFacuTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleBiblioFacuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detalleBiblioFacuController.selected != null}">
+
+                        <h:outputText value="#{pROPIEDADES.ViewDetalleBiblioFacuLabel_dtbfCodigo}"/>
+                        <h:outputText value="#{detalleBiblioFacuController.selected.dtbfCodigo}" title="#{pROPIEDADES.ViewDetalleBiblioFacuTitle_dtbfCodigo}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewDetalleBiblioFacuLabel_dtbfStock}"/>
+                        <h:outputText value="#{detalleBiblioFacuController.selected.dtbfStock}" title="#{pROPIEDADES.ViewDetalleBiblioFacuTitle_dtbfStock}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewDetalleBiblioFacuLabel_dtbfEstado}"/>
+                        <h:outputText value="#{detalleBiblioFacuController.selected.dtbfEstado}" title="#{pROPIEDADES.ViewDetalleBiblioFacuTitle_dtbfEstado}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewDetalleBiblioFacuLabel_biblCodigo}"/>
+                        <h:outputText value="#{detalleBiblioFacuController.selected.biblCodigo.biblDescripcion}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewDetalleBiblioFacuLabel_facuCodigo}"/>
+                        <h:outputText value="#{detalleBiblioFacuController.selected.facuCodigo.facuCodigo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{pROPIEDADES.Close}" onclick="PF('DetalleBiblioFacuViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

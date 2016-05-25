@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PrestamoEditDlg" widgetVar="PrestamoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{pROPIEDADES.EditPrestamoTitle}" closeOnEscape="true">
+
+            <h:form id="PrestamoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{prestamoController.selected != null}">
+
+
+                        <h:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presCodigo}" for="presCodigo" />
+                        <h:outputText id="presCodigo" value="#{prestamoController.selected.presCodigo}" />
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presFechaReserva}" for="presFechaReserva" />
+                        <p:calendar id="presFechaReserva" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaReserva}" title="#{pROPIEDADES.EditPrestamoTitle_presFechaReserva}"  showOn="button"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presFechaFinReserva}" for="presFechaFinReserva" />
+                        <p:calendar id="presFechaFinReserva" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaFinReserva}" title="#{pROPIEDADES.EditPrestamoTitle_presFechaFinReserva}"  showOn="button"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presFechaEntrega}" for="presFechaEntrega" />
+                        <p:calendar id="presFechaEntrega" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaEntrega}" title="#{pROPIEDADES.EditPrestamoTitle_presFechaEntrega}"  showOn="button"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presFechaMaxRecepcion}" for="presFechaMaxRecepcion" />
+                        <p:calendar id="presFechaMaxRecepcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaMaxRecepcion}" title="#{pROPIEDADES.EditPrestamoTitle_presFechaMaxRecepcion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presEstado}" for="presEstado" />
+                        <p:inputText id="presEstado" value="#{prestamoController.selected.presEstado}" title="#{pROPIEDADES.EditPrestamoTitle_presEstado}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presObservacion}" for="presObservacion" />
+                        <p:inputText id="presObservacion" value="#{prestamoController.selected.presObservacion}" title="#{pROPIEDADES.EditPrestamoTitle_presObservacion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_presFechaRecepcion}" for="presFechaRecepcion" />
+                        <p:calendar id="presFechaRecepcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{prestamoController.selected.presFechaRecepcion}" title="#{pROPIEDADES.EditPrestamoTitle_presFechaRecepcion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditPrestamoLabel_userCodigo}" for="userCodigo" />
+                        <p:selectOneMenu id="userCodigo" value="#{prestamoController.selected.userCodigo}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="userCodigoItem"
+                                           itemValue="#{userCodigoItem}"
+                                           itemLabel="#{userCodigoItem.userUsername.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prestamoController.save}" value="#{pROPIEDADES.Save}" update="display,:PrestamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PrestamoEditDialog'));">
+                        <p:confirm header="#{pROPIEDADES.ConfirmationHeader}" message="#{pROPIEDADES.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{pROPIEDADES.Cancel}" oncomplete="PF('PrestamoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

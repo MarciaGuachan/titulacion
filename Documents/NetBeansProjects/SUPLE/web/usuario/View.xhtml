@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{pROPIEDADES.ViewUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userCodigo}"/>
+                        <h:outputText value="#{usuarioController.selected.userCodigo}" title="#{pROPIEDADES.ViewUsuarioTitle_userCodigo}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userNombre}"/>
+                        <h:outputText value="#{usuarioController.selected.userNombre}" title="#{pROPIEDADES.ViewUsuarioTitle_userNombre}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userApellido}"/>
+                        <h:outputText value="#{usuarioController.selected.userApellido}" title="#{pROPIEDADES.ViewUsuarioTitle_userApellido}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userEmail}"/>
+                        <h:outputText value="#{usuarioController.selected.userEmail}" title="#{pROPIEDADES.ViewUsuarioTitle_userEmail}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userTelefono}"/>
+                        <h:outputText value="#{usuarioController.selected.userTelefono}" title="#{pROPIEDADES.ViewUsuarioTitle_userTelefono}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userDireccion}"/>
+                        <h:outputText value="#{usuarioController.selected.userDireccion}" title="#{pROPIEDADES.ViewUsuarioTitle_userDireccion}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userUsername}"/>
+                        <h:outputText value="#{usuarioController.selected.userUsername}" title="#{pROPIEDADES.ViewUsuarioTitle_userUsername}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userPassword}"/>
+                        <h:outputText value="#{usuarioController.selected.userPassword}" title="#{pROPIEDADES.ViewUsuarioTitle_userPassword}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_nickname}"/>
+                        <h:outputText value="#{usuarioController.selected.nickname}" title="#{pROPIEDADES.ViewUsuarioTitle_nickname}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_tiusCodigo}"/>
+                        <h:outputText value="#{usuarioController.selected.tiusCodigo.tiusNombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{pROPIEDADES.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

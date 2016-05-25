@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UsuarioListForm">
+
+        <p:panel header="#{pROPIEDADES.ListUsuarioTitle}">
+            <p:contextMenu id="UsuarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{pROPIEDADES.Create}" onclick="document.getElementById('UsuarioListForm:createButton').click();" icon="ui-icon-plus"/>
+                
+                <p:menuitem value="#{pROPIEDADES.Edit}" onclick="document.getElementById('UsuarioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{pROPIEDADES.Delete}" onclick="document.getElementById('UsuarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{pROPIEDADES.UsuarioMenuItem_prestamoCollection}" icon="ui-icon-search"  action="#{usuarioController.navigatePrestamoCollection}" disabled="#{empty usuarioController.selected.prestamoCollection}" ajax="false"/>  
+                <p:menuitem value="#{pROPIEDADES.UsuarioMenuItem_tiusCodigo}" icon="ui-icon-search"  actionListener="#{usuarioController.prepareTiusCodigo}" update=":TipoUsuarioViewForm" oncomplete="PF('TipoUsuarioViewDialog').show()" disabled="#{empty usuarioController.selected.tiusCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{usuarioController.items}"
+                         lazy="false"
+                         rowKey="#{item.userCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{usuarioController.selected}">
+              
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuarioListForm:viewButton').click();"/>
+
+                
+
+
+                <p:column sortBy="#{item.userNombre}" filterBy="#{item.userNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userApellido}" filterBy="#{item.userApellido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userApellido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userApellido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userEmail}" filterBy="#{item.userEmail}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userEmail}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userEmail}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userTelefono}" filterBy="#{item.userTelefono}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userTelefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userTelefono}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userDireccion}" filterBy="#{item.userDireccion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userDireccion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userDireccion}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.userUsername}" filterBy="#{item.userUsername}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userUsername}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.userUsername}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.userPassword}" filterBy="#{item.userPassword}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_userPassword}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.userPassword}"/>
+                                    </p:column>
+                -->
+                
+                                    <p:column sortBy="#{item.nickname}" filterBy="#{item.nickname}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_nickname}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nickname}"/>
+                                    </p:column>
+                
+               
+                                    <p:column sortBy="#{item.tiusCodigo.tiusCodigo}" filterBy="#{item.tiusCodigo.tiusCodigo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{pROPIEDADES.ListUsuarioTitle_tiusCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tiusCodigo.tiusNombre}"/>
+                                    </p:column>
+                
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{pROPIEDADES.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{pROPIEDADES.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{pROPIEDADES.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{pROPIEDADES.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
+                <p:confirm header="#{pROPIEDADES.ConfirmationHeader}" message="#{pROPIEDADES.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
