@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsuarioCreatePage" lazy="true">
+        <pm:header title="#{pROPIEDADES.CreateUsuarioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsuarioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsuarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userNombre}" for="userNombre" />
+                            <p:inputText id="userNombre" value="#{usuarioController.selected.userNombre}" title="#{pROPIEDADES.CreateUsuarioTitle_userNombre}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userApellido}" for="userApellido" />
+                            <p:inputText id="userApellido" value="#{usuarioController.selected.userApellido}" title="#{pROPIEDADES.CreateUsuarioTitle_userApellido}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userEmail}" for="userEmail" />
+                            <p:inputText id="userEmail" value="#{usuarioController.selected.userEmail}" title="#{pROPIEDADES.CreateUsuarioTitle_userEmail}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userTelefono}" for="userTelefono" />
+                            <p:inputText id="userTelefono" value="#{usuarioController.selected.userTelefono}" title="#{pROPIEDADES.CreateUsuarioTitle_userTelefono}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userDireccion}" for="userDireccion" />
+                            <p:inputText id="userDireccion" value="#{usuarioController.selected.userDireccion}" title="#{pROPIEDADES.CreateUsuarioTitle_userDireccion}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userUsername}" for="userUsername" />
+                            <p:inputText id="userUsername" value="#{usuarioController.selected.userUsername}" title="#{pROPIEDADES.CreateUsuarioTitle_userUsername}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_userPassword}" for="userPassword" />
+                            <p:inputText id="userPassword" value="#{usuarioController.selected.userPassword}" title="#{pROPIEDADES.CreateUsuarioTitle_userPassword}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateUsuarioLabel_tiusCodigo}" for="tiusCodigo" />
+                            <p:selectOneMenu id="tiusCodigo" value="#{usuarioController.selected.tiusCodigo}"  converter="tipoUsuarioConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoUsuarioController.items}"
+                                               var="tiusCodigoItem"
+                                               itemValue="#{tiusCodigoItem}"
+                                               itemLabel="#{tiusCodigoItem.tiusCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{pROPIEDADES.Save}" update="display,:UsuarioListPage:UsuarioListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:UsuarioListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

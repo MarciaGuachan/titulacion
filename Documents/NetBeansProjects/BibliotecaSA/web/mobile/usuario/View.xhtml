@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsuarioViewPage" lazy="true">
+        <pm:header title="#{pROPIEDADES.ViewUsuarioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsuarioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{usuarioController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userCodigo}"/>
+                            <h:outputText value="#{usuarioController.selected.userCodigo}" title="#{pROPIEDADES.ViewUsuarioTitle_userCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userNombre}"/>
+                            <h:outputText value="#{usuarioController.selected.userNombre}" title="#{pROPIEDADES.ViewUsuarioTitle_userNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userApellido}"/>
+                            <h:outputText value="#{usuarioController.selected.userApellido}" title="#{pROPIEDADES.ViewUsuarioTitle_userApellido}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userEmail}"/>
+                            <h:outputText value="#{usuarioController.selected.userEmail}" title="#{pROPIEDADES.ViewUsuarioTitle_userEmail}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userTelefono}"/>
+                            <h:outputText value="#{usuarioController.selected.userTelefono}" title="#{pROPIEDADES.ViewUsuarioTitle_userTelefono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userDireccion}"/>
+                            <h:outputText value="#{usuarioController.selected.userDireccion}" title="#{pROPIEDADES.ViewUsuarioTitle_userDireccion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userUsername}"/>
+                            <h:outputText value="#{usuarioController.selected.userUsername}" title="#{pROPIEDADES.ViewUsuarioTitle_userUsername}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_userPassword}"/>
+                            <h:outputText value="#{usuarioController.selected.userPassword}" title="#{pROPIEDADES.ViewUsuarioTitle_userPassword}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{pROPIEDADES.ViewUsuarioLabel_tiusCodigo}"/>
+                            <h:outputText value="#{usuarioController.selected.tiusCodigo.tiusCodigo}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

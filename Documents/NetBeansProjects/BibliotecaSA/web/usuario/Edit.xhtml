@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{pROPIEDADES.EditUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userCodigo}" for="userCodigo" />
+                        <h:outputText id="userCodigo" value="#{usuarioController.selected.userCodigo}" />
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userNombre}" for="userNombre" />
+                        <p:inputText id="userNombre" value="#{usuarioController.selected.userNombre}" title="#{pROPIEDADES.EditUsuarioTitle_userNombre}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userApellido}" for="userApellido" />
+                        <p:inputText id="userApellido" value="#{usuarioController.selected.userApellido}" title="#{pROPIEDADES.EditUsuarioTitle_userApellido}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userEmail}" for="userEmail" />
+                        <p:inputText id="userEmail" value="#{usuarioController.selected.userEmail}" title="#{pROPIEDADES.EditUsuarioTitle_userEmail}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userTelefono}" for="userTelefono" />
+                        <p:inputText id="userTelefono" value="#{usuarioController.selected.userTelefono}" title="#{pROPIEDADES.EditUsuarioTitle_userTelefono}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userDireccion}" for="userDireccion" />
+                        <p:inputText id="userDireccion" value="#{usuarioController.selected.userDireccion}" title="#{pROPIEDADES.EditUsuarioTitle_userDireccion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userUsername}" for="userUsername" />
+                        <p:inputText id="userUsername" value="#{usuarioController.selected.userUsername}" title="#{pROPIEDADES.EditUsuarioTitle_userUsername}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_userPassword}" for="userPassword" />
+                        <p:inputText id="userPassword" value="#{usuarioController.selected.userPassword}" title="#{pROPIEDADES.EditUsuarioTitle_userPassword}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{pROPIEDADES.EditUsuarioLabel_tiusCodigo}" for="tiusCodigo" />
+                        <p:selectOneMenu id="tiusCodigo" value="#{usuarioController.selected.tiusCodigo}"  converter="tipoUsuarioConverter">
+                            <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoUsuarioController.items}"
+                                           var="tiusCodigoItem"
+                                           itemValue="#{tiusCodigoItem}"
+                                           itemLabel="#{tiusCodigoItem.tiusCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{pROPIEDADES.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioEditDialog'));">
+                        <p:confirm header="#{pROPIEDADES.ConfirmationHeader}" message="#{pROPIEDADES.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{pROPIEDADES.Cancel}" oncomplete="PF('UsuarioEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
