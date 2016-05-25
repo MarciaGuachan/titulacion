@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BibliografiaViewDlg" widgetVar="BibliografiaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{pROPIEDADES.ViewBibliografiaTitle}" closeOnEscape="true">
+
+            <h:form id="BibliografiaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{bibliografiaController.selected != null}">
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblCodigo}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblCodigo}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblCodigo}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblTitulo}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblTitulo}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblTitulo}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblEditorial}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblEditorial}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblEditorial}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblFechaPublicacion}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblFechaPublicacion}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblFechaPublicacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblIdioma}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblIdioma}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblIdioma}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_biblDescripcion}"/>
+                        <h:outputText value="#{bibliografiaController.selected.biblDescripcion}" title="#{pROPIEDADES.ViewBibliografiaTitle_biblDescripcion}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_areaCodigo}"/>
+                        <h:outputText value="#{bibliografiaController.selected.areaCodigo.areaNombre}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_autorCodigo}"/>
+                        <h:outputText value="#{bibliografiaController.selected.autorCodigo.autorNombre}"/>
+
+                        <h:outputText value="#{pROPIEDADES.ViewBibliografiaLabel_tibiCodigo}"/>
+                        <h:outputText value="#{bibliografiaController.selected.tibiCodigo.tibiNombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{pROPIEDADES.Close}" onclick="PF('BibliografiaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

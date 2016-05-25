@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DetalleBiblioFacuCreatePage" lazy="true">
+        <pm:header title="#{pROPIEDADES.CreateDetalleBiblioFacuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{pROPIEDADES.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DetalleBiblioFacuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DetalleBiblioFacuCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalleBiblioFacuController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetalleBiblioFacuLabel_dtbfStock}" for="dtbfStock" />
+                            <p:inputText id="dtbfStock" value="#{detalleBiblioFacuController.selected.dtbfStock}" title="#{pROPIEDADES.CreateDetalleBiblioFacuTitle_dtbfStock}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetalleBiblioFacuLabel_dtbfEstado}" for="dtbfEstado" />
+                            <p:inputText id="dtbfEstado" value="#{detalleBiblioFacuController.selected.dtbfEstado}" title="#{pROPIEDADES.CreateDetalleBiblioFacuTitle_dtbfEstado}" size="30" maxlength="30"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetalleBiblioFacuLabel_biblCodigo}" for="biblCodigo" />
+                            <p:selectOneMenu id="biblCodigo" value="#{detalleBiblioFacuController.selected.biblCodigo}"  converter="bibliografiaConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{bibliografiaController.items}"
+                                               var="biblCodigoItem"
+                                               itemValue="#{biblCodigoItem}"
+                                               itemLabel="#{biblCodigoItem.biblDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{pROPIEDADES.CreateDetalleBiblioFacuLabel_facuCodigo}" for="facuCodigo" />
+                            <p:selectOneMenu id="facuCodigo" value="#{detalleBiblioFacuController.selected.facuCodigo}"  converter="facultadConverter">
+                                <f:selectItem itemLabel="#{pROPIEDADES.SelectOneMessage}"/>
+                                <f:selectItems value="#{facultadController.items}"
+                                               var="facuCodigoItem"
+                                               itemValue="#{facuCodigoItem}"
+                                               itemLabel="#{facuCodigoItem.facuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{detalleBiblioFacuController.saveNew}" value="#{pROPIEDADES.Save}" update="display,:DetalleBiblioFacuListPage:DetalleBiblioFacuListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:DetalleBiblioFacuListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

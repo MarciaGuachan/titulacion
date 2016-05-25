@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetalleBiblioFacuListForm">
+
+        <p:panel header="#{pROPIEDADES.ListDetalleBiblioFacuTitle}">
+            <p:contextMenu id="DetalleBiblioFacuDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{pROPIEDADES.Create}" onclick="document.getElementById('DetalleBiblioFacuListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{pROPIEDADES.View}" onclick="document.getElementById('DetalleBiblioFacuListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{pROPIEDADES.Edit}" onclick="document.getElementById('DetalleBiblioFacuListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{pROPIEDADES.Delete}" onclick="document.getElementById('DetalleBiblioFacuListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{pROPIEDADES.DetalleBiblioFacuMenuItem_detallePrestamoCollection}" icon="ui-icon-search"  action="#{detalleBiblioFacuController.navigateDetallePrestamoCollection}" disabled="#{empty detalleBiblioFacuController.selected.detallePrestamoCollection}" ajax="false"/>  
+                <p:menuitem value="#{pROPIEDADES.DetalleBiblioFacuMenuItem_biblCodigo}" icon="ui-icon-search"  actionListener="#{detalleBiblioFacuController.prepareBiblCodigo}" update=":BibliografiaViewForm" oncomplete="PF('BibliografiaViewDialog').show()" disabled="#{empty detalleBiblioFacuController.selected.biblCodigo}"/>  
+                <p:menuitem value="#{pROPIEDADES.DetalleBiblioFacuMenuItem_facuCodigo}" icon="ui-icon-search"  actionListener="#{detalleBiblioFacuController.prepareFacuCodigo}" update=":FacultadViewForm" oncomplete="PF('FacultadViewDialog').show()" disabled="#{empty detalleBiblioFacuController.selected.facuCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detalleBiblioFacuController.items}"
+                         lazy="false"
+                         rowKey="#{item.dtbfCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detalleBiblioFacuController.selected}">
+                
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetalleBiblioFacuDataTableContextMenu" listener="#{detalleBiblioFacuController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetalleBiblioFacuDataTableContextMenu" listener="#{detalleBiblioFacuController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{detalleBiblioFacuController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetalleBiblioFacuListForm:viewButton').click();"/>
+
+                
+
+
+                <p:column sortBy="#{item.dtbfStock}" filterBy="#{item.dtbfStock}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListDetalleBiblioFacuTitle_dtbfStock}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtbfStock}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dtbfEstado}" filterBy="#{item.dtbfEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListDetalleBiblioFacuTitle_dtbfEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dtbfEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.biblCodigo.biblDescripcion}" filterBy="#{item.biblCodigo.biblDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListDetalleBiblioFacuTitle_biblCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.biblCodigo.biblTitulo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.facuCodigo.facuCodigo}" filterBy="#{item.facuCodigo.facuCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{pROPIEDADES.ListDetalleBiblioFacuTitle_facuCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.facuCodigo.facuNombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{pROPIEDADES.Create}" actionListener="#{detalleBiblioFacuController.prepareCreate}" update=":DetalleBiblioFacuCreateForm" oncomplete="PF('DetalleBiblioFacuCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{pROPIEDADES.View}" update=":DetalleBiblioFacuViewForm" oncomplete="PF('DetalleBiblioFacuViewDialog').show()" disabled="#{empty detalleBiblioFacuController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{pROPIEDADES.Edit}" update=":DetalleBiblioFacuEditForm" oncomplete="PF('DetalleBiblioFacuEditDialog').show()" disabled="#{empty detalleBiblioFacuController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{pROPIEDADES.Delete}" actionListener="#{detalleBiblioFacuController.delete}" update=":growl,datalist" disabled="#{empty detalleBiblioFacuController.selected}">
+                <p:confirm header="#{pROPIEDADES.ConfirmationHeader}" message="#{pROPIEDADES.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
