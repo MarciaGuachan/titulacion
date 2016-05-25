@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30d8fd04-7580-4700-999a-2db836b8f77c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     docente."doce_cedula" AS docente_doce_cedula,
+     docente."doce_email_uce" AS docente_doce_email_uce,
+     docente."doce_email_personal" AS docente_doce_email_personal,
+     materia."mate_nombre" AS materia_mate_nombre,
+     materia."mate_creditos" AS materia_mate_creditos,
+     docente."doce_nombres" AS docente_doce_nombres,
+     docente."doce_apellidos" AS docente_doce_apellidos
+FROM
+     "public"."docente" docente INNER JOIN "public"."docente_materia_curso" docente_materia_curso ON docente."doce_codigo" = docente_materia_curso."doce_codigo"
+     INNER JOIN "public"."materia" materia ON docente_materia_curso."mate_codigo" = materia."mate_codigo"]]>
+	</queryString>
+	<field name="docente_doce_cedula" class="java.lang.String"/>
+	<field name="docente_doce_email_uce" class="java.lang.String"/>
+	<field name="docente_doce_email_personal" class="java.lang.String"/>
+	<field name="materia_mate_nombre" class="java.lang.String"/>
+	<field name="materia_mate_creditos" class="java.lang.Integer"/>
+	<field name="docente_doce_nombres" class="java.lang.String"/>
+	<field name="docente_doce_apellidos" class="java.lang.String"/>
+	<group name="docente_doce_cedula">
+		<groupExpression><![CDATA[$F{docente_doce_cedula}]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<textField>
+					<reportElement uuid="c582a822-e9cb-4f1e-998a-cd5080602c33" style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#006600"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{docente_doce_cedula}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="5ec9530d-9872-4b96-9b14-7ecdd0880622" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="fdb98a07-2395-4a17-ae81-51aba730c7e2" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="4a643d2d-b64d-4e4d-8965-f43127be6449" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b2f9efac-2998-465a-8500-6d7d4dd993ba" style="SubTitle" x="100" y="46" width="174" height="22"/>
+				<textElement/>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="5db893f7-44f5-4931-8381-a2b4fe42bc7f" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="e3ba6396-1261-46ff-b8c5-356ab843d4c3" style="Column header" x="0" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff69b485-9d40-4410-a9db-e4dec630979a" style="Column header" x="92" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[PEROSNAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d40746e-358a-4fbf-bbd2-2a3918dbe462" style="Column header" x="184" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ef8a340-1d7e-4705-aad4-24fec3a286ef" style="Column header" x="276" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[CREDITOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b5c2022-08c1-4bb4-aef5-39c4613aa027" style="Column header" x="368" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fec6b6af-b4b3-4797-8db9-bb3fb799860a" style="Column header" x="460" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="fc342902-6d5d-4154-8bd6-75c0694b3dd8" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="d55949c4-536a-4df6-bab6-6ecd6dc4079e" style="Detail" x="0" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{docente_doce_email_uce}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aa41a4ef-8c8c-437c-aa04-9a195aeb016b" style="Detail" x="100" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{docente_doce_email_personal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e3f2de3-b19c-428b-9ed2-fe7bf68b98cf" style="Detail" x="194" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{materia_mate_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="efd2033a-4899-4acd-a428-40a4f4b09bb9" style="Detail" x="286" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{materia_mate_creditos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b3e0b011-e450-423e-8c7d-708070349ade" style="Detail" x="483" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{docente_doce_apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1878f4de-d04c-4473-b89c-35520c480618" style="Detail" x="378" y="1" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{docente_doce_nombres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="e6f25f8d-5ebc-447f-8887-bb645395532d" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8ee6b66b-9437-425c-96e6-d36002d6c62c" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="66d0c7ba-3cef-4507-8633-9c312b8ccd07" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="d51ee33b-7031-4f59-8081-b3b428c1584c" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

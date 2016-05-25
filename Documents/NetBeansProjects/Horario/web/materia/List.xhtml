@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MateriaListForm">
+
+        <p:panel header="#{myBundle.ListMateriaTitle}">
+            <p:contextMenu id="MateriaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MateriaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MateriaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MateriaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MateriaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MateriaMenuItem_docenteMateriaCursoCollection}" icon="ui-icon-search"  action="#{materiaController.navigateDocenteMateriaCursoCollection}" disabled="#{empty materiaController.selected.docenteMateriaCursoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MateriaMenuItem_materiaSemestreCarreraCollection}" icon="ui-icon-search"  action="#{materiaController.navigateMateriaSemestreCarreraCollection}" disabled="#{empty materiaController.selected.materiaSemestreCarreraCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MateriaMenuItem_materiaEstadisticoCollection}" icon="ui-icon-search"  action="#{materiaController.navigateMateriaEstadisticoCollection}" disabled="#{empty materiaController.selected.materiaEstadisticoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MateriaMenuItem_disponibilidadMateriaCollection}" icon="ui-icon-search"  action="#{materiaController.navigateDisponibilidadMateriaCollection}" disabled="#{empty materiaController.selected.disponibilidadMateriaCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.MateriaMenuItem_preinscripcionCollection}" icon="ui-icon-search"  action="#{materiaController.navigatePreinscripcionCollection}" disabled="#{empty materiaController.selected.preinscripcionCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{materiaController.items}"
+                         lazy="false"
+                         rowKey="#{item.mateCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{materiaController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{materiaController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.mateCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MateriaDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MateriaDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MateriaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.mateCodigo}" filterBy="#{item.mateCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMateriaTitle_mateCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mateNombre}" filterBy="#{item.mateNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMateriaTitle_mateNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mateCreditos}" filterBy="#{item.mateCreditos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMateriaTitle_mateCreditos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateCreditos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mateDescripcion}" filterBy="#{item.mateDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMateriaTitle_mateDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{materiaController.prepareCreate}" update=":MateriaCreateForm" oncomplete="PF('MateriaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MateriaViewForm" oncomplete="PF('MateriaViewDialog').show()" disabled="#{empty materiaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MateriaEditForm" oncomplete="PF('MateriaEditDialog').show()" disabled="#{empty materiaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{materiaController.delete}" update=":growl,datalist" disabled="#{empty materiaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

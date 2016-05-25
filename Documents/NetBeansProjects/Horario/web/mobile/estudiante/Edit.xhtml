@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EstudianteEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditEstudianteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EstudianteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EstudianteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{estudianteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditEstudianteLabel_estuCodigo}" for="estuCodigo" />
+                            <h:outputText id="estuCodigo" value="#{estudianteController.selected.estuCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuNombres}" for="estuNombres" />
+                            <p:inputText id="estuNombres" value="#{estudianteController.selected.estuNombres}" title="#{myBundle.EditEstudianteTitle_estuNombres}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuApellidos}" for="estuApellidos" />
+                            <p:inputText id="estuApellidos" value="#{estudianteController.selected.estuApellidos}" title="#{myBundle.EditEstudianteTitle_estuApellidos}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuCedula}" for="estuCedula" />
+                            <p:inputText id="estuCedula" value="#{estudianteController.selected.estuCedula}" title="#{myBundle.EditEstudianteTitle_estuCedula}" size="14" maxlength="14"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuEmailUce}" for="estuEmailUce" />
+                            <p:inputText id="estuEmailUce" value="#{estudianteController.selected.estuEmailUce}" title="#{myBundle.EditEstudianteTitle_estuEmailUce}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuEmailPersonal}" for="estuEmailPersonal" />
+                            <p:inputText id="estuEmailPersonal" value="#{estudianteController.selected.estuEmailPersonal}" title="#{myBundle.EditEstudianteTitle_estuEmailPersonal}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuFechaNacimiento}" for="estuFechaNacimiento" />
+                            <p:calendar id="estuFechaNacimiento" pattern="MM/dd/yyyy" value="#{estudianteController.selected.estuFechaNacimiento}" title="#{myBundle.EditEstudianteTitle_estuFechaNacimiento}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuGenereo}" for="estuGenereo" />
+                            <p:inputText id="estuGenereo" value="#{estudianteController.selected.estuGenereo}" title="#{myBundle.EditEstudianteTitle_estuGenereo}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuTelefono}" for="estuTelefono" />
+                            <p:inputText id="estuTelefono" value="#{estudianteController.selected.estuTelefono}" title="#{myBundle.EditEstudianteTitle_estuTelefono}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuCelular}" for="estuCelular" />
+                            <p:inputText id="estuCelular" value="#{estudianteController.selected.estuCelular}" title="#{myBundle.EditEstudianteTitle_estuCelular}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_estuDireccion}" for="estuDireccion" />
+                            <p:inputText id="estuDireccion" value="#{estudianteController.selected.estuDireccion}" title="#{myBundle.EditEstudianteTitle_estuDireccion}" size="110" maxlength="110"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditEstudianteLabel_carrCodigo}" for="carrCodigo" />
+                            <p:selectOneMenu id="carrCodigo" value="#{estudianteController.selected.carrCodigo}"  converter="carreraConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{carreraController.items}"
+                                               var="carrCodigoItem"
+                                               itemValue="#{carrCodigoItem}"
+                                               itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{estudianteController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:EstudianteListPage:EstudianteListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:EstudianteListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

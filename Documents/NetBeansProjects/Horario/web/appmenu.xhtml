@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.AulaHeading}..." outcome="/aula/index" />
+                    <p:menuitem value="#{myBundle.CarreraHeading}..." outcome="/carrera/index" />
+                    <p:menuitem value="#{myBundle.CursoHeading}..." outcome="/curso/index" />
+                    <p:menuitem value="#{myBundle.DedicacionHeading}..." outcome="/dedicacion/index" />
+                    <p:menuitem value="#{myBundle.DisponibilidadHorasHeading}..." outcome="/disponibilidadHoras/index" />
+                    <p:menuitem value="#{myBundle.DisponibilidadMateriaHeading}..." outcome="/disponibilidadMateria/index" />
+                    <p:menuitem value="#{myBundle.DocenteHeading}..." outcome="/docente/index" />
+                    <p:menuitem value="#{myBundle.DocenteMateriaCursoHeading}..." outcome="/docenteMateriaCurso/index" />
+                    <p:menuitem value="#{myBundle.EdificioHeading}..." outcome="/edificio/index" />
+                    <p:menuitem value="#{myBundle.EncuestaHeading}..." outcome="/encuesta/index" />
+                    <p:menuitem value="#{myBundle.EstudianteHeading}..." outcome="/estudiante/index" />
+                    <p:menuitem value="#{myBundle.HorarioHeading}..." outcome="/horario/index" />
+                    <p:menuitem value="#{myBundle.MateriaHeading}..." outcome="/materia/index" />
+                    <p:menuitem value="#{myBundle.MateriaEstadisticoHeading}..." outcome="/materiaEstadistico/index" />
+                    <p:menuitem value="#{myBundle.MateriaSemestreCarreraHeading}..." outcome="/materiaSemestreCarrera/index" />
+                    <p:menuitem value="#{myBundle.MenuHeading}..." outcome="/menu/index" />
+                    <p:menuitem value="#{myBundle.ParaleloHeading}..." outcome="/paralelo/index" />
+                    <p:menuitem value="#{myBundle.PeriodoHeading}..." outcome="/periodo/index" />
+                    <p:menuitem value="#{myBundle.PreinscripcionHeading}..." outcome="/preinscripcion/index" />
+                    <p:menuitem value="#{myBundle.RolHeading}..." outcome="/rol/index" />
+                    <p:menuitem value="#{myBundle.RolMenuHeading}..." outcome="/rolMenu/index" />
+                    <p:menuitem value="#{myBundle.SemestreHeading}..." outcome="/semestre/index" />
+                    <p:menuitem value="#{myBundle.TipoAulaHeading}..." outcome="/tipoAula/index" />
+                    <p:menuitem value="#{myBundle.TipoTrabajoHeading}..." outcome="/tipoTrabajo/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/usuario/index" />
+                </p:submenu>
+                <p:menuitem value="#{myBundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

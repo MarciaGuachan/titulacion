@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AulaListForm">
+
+        <p:panel header="#{myBundle.ListAulaTitle}">
+            <p:contextMenu id="AulaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AulaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AulaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AulaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AulaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AulaMenuItem_carrCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareCarrCodigo}" update=":CarreraViewForm" oncomplete="PF('CarreraViewDialog').show()" disabled="#{empty aulaController.selected.carrCodigo}"/>  
+                <p:menuitem value="#{myBundle.AulaMenuItem_edifCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareEdifCodigo}" update=":EdificioViewForm" oncomplete="PF('EdificioViewDialog').show()" disabled="#{empty aulaController.selected.edifCodigo}"/>  
+                <p:menuitem value="#{myBundle.AulaMenuItem_tiauCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareTiauCodigo}" update=":TipoAulaViewForm" oncomplete="PF('TipoAulaViewDialog').show()" disabled="#{empty aulaController.selected.tiauCodigo}"/>  
+                <p:menuitem value="#{myBundle.AulaMenuItem_horarioCollection}" icon="ui-icon-search"  action="#{aulaController.navigateHorarioCollection}" disabled="#{empty aulaController.selected.horarioCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{aulaController.items}"
+                         lazy="false"
+                         rowKey="#{item.aulaCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{aulaController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{aulaController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.aulaCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AulaDataTableContextMenu" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AulaDataTableContextMenu" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AulaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.aulaCodigo}" filterBy="#{item.aulaCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_aulaCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaNombre}" filterBy="#{item.aulaNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_aulaNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaCapacidad}" filterBy="#{item.aulaCapacidad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_aulaCapacidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaCapacidad}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaDescripcion}" filterBy="#{item.aulaDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_aulaDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.carrCodigo.carrDescripcion}" filterBy="#{item.carrCodigo.carrDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_carrCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.carrCodigo.carrDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.edifCodigo.edifDescripcion}" filterBy="#{item.edifCodigo.edifDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAulaTitle_edifCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edifCodigo.edifDescripcion}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.tiauCodigo.tiauDescripcion}" filterBy="#{item.tiauCodigo.tiauDescripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListAulaTitle_tiauCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tiauCodigo.tiauDescripcion}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{aulaController.prepareCreate}" update=":AulaCreateForm" oncomplete="PF('AulaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AulaViewForm" oncomplete="PF('AulaViewDialog').show()" disabled="#{empty aulaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AulaEditForm" oncomplete="PF('AulaEditDialog').show()" disabled="#{empty aulaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{aulaController.delete}" update=":growl,datalist" disabled="#{empty aulaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DedicacionEditDlg" widgetVar="DedicacionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDedicacionTitle}" closeOnEscape="true">
+
+            <h:form id="DedicacionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{dedicacionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDedicacionLabel_dediCodigo}" for="dediCodigo" />
+                        <h:outputText id="dediCodigo" value="#{dedicacionController.selected.dediCodigo}" />
+
+                        <p:outputLabel value="#{myBundle.EditDedicacionLabel_dediNombre}" for="dediNombre" />
+                        <p:inputText id="dediNombre" value="#{dedicacionController.selected.dediNombre}" title="#{myBundle.EditDedicacionTitle_dediNombre}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditDedicacionLabel_dediDescripcion}" for="dediDescripcion" />
+                        <p:inputText id="dediDescripcion" value="#{dedicacionController.selected.dediDescripcion}" title="#{myBundle.EditDedicacionTitle_dediDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dedicacionController.save}" value="#{myBundle.Save}" update="display,:DedicacionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DedicacionEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DedicacionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

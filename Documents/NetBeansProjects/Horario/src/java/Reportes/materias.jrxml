@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3abc778-19a0-4efe-880b-7259979029f5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     materia."mate_nombre" AS materia_mate_nombre,
+     materia."mate_creditos" AS materia_mate_creditos,
+     materia."mate_descripcion" AS materia_mate_descripcion
+FROM
+     "public"."materia" materia]]>
+	</queryString>
+	<field name="materia_mate_nombre" class="java.lang.String"/>
+	<field name="materia_mate_creditos" class="java.lang.Integer"/>
+	<field name="materia_mate_descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="efe94d57-f6db-4df4-b251-09a9b68fda38" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c6e733ca-6c9b-4e64-8705-2041d251730d" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="78515e04-294f-444b-8f39-b71b331f0ee0" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="b2681203-3cea-4fe1-a112-97bd275bc74f" style="Column header" x="0" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="66b8e0ac-1b97-4c6d-bfe8-43477e92d5b6" style="Column header" x="185" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[CREDITOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6cd48ab-8e62-4d8e-82b4-874a0e468829" style="Column header" x="370" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="147bc552-f333-4f05-85c7-cfbd360fdc73" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="5f6fb553-54a7-4d14-a135-d8b0f43eb9ae" style="Detail" x="0" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{materia_mate_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="48ccd3da-401b-4ce7-8678-91fb46fd7773" style="Detail" x="185" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{materia_mate_creditos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="126cb474-f095-41ee-84d5-30d1565363fc" style="Detail" x="370" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{materia_mate_descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="2f50ea37-a0dd-4978-ab5c-a67fdd5ecbcb" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="42f68bbd-447b-4cfb-b8b3-e71f46930473" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="51bf6020-6c97-40fb-b381-110109a0c485" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="2c87bc5a-7e02-45a3-81db-3fcb4c8f5b6c" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

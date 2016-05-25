@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ParaleloListForm">
+
+        <p:panel header="#{myBundle.ListParaleloTitle}">
+            <p:contextMenu id="ParaleloDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ParaleloListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ParaleloListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ParaleloListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ParaleloListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ParaleloMenuItem_cursoCollection}" icon="ui-icon-search"  action="#{paraleloController.navigateCursoCollection}" disabled="#{empty paraleloController.selected.cursoCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{paraleloController.items}"
+                         lazy="false"
+                         rowKey="#{item.paraCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{paraleloController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{paraleloController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.paraCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ParaleloDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ParaleloDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ParaleloListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.paraCodigo}" filterBy="#{item.paraCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParaleloTitle_paraCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.paraCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.paraNombre}" filterBy="#{item.paraNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParaleloTitle_paraNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.paraNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.paraDescripcion}" filterBy="#{item.paraDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParaleloTitle_paraDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.paraDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{paraleloController.prepareCreate}" update=":ParaleloCreateForm" oncomplete="PF('ParaleloCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ParaleloViewForm" oncomplete="PF('ParaleloViewDialog').show()" disabled="#{empty paraleloController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ParaleloEditForm" oncomplete="PF('ParaleloEditDialog').show()" disabled="#{empty paraleloController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{paraleloController.delete}" update=":growl,datalist" disabled="#{empty paraleloController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

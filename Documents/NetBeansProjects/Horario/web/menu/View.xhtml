@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MenuViewDlg" widgetVar="MenuViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMenuTitle}" closeOnEscape="true">
+
+            <h:form id="MenuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{menuController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuCodigo}"/>
+                        <h:outputText value="#{menuController.selected.menuCodigo}" title="#{myBundle.ViewMenuTitle_menuCodigo}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuPadre}"/>
+                        <h:outputText value="#{menuController.selected.menuPadre}" title="#{myBundle.ViewMenuTitle_menuPadre}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuNivel}"/>
+                        <h:outputText value="#{menuController.selected.menuNivel}" title="#{myBundle.ViewMenuTitle_menuNivel}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuOrden}"/>
+                        <h:outputText value="#{menuController.selected.menuOrden}" title="#{myBundle.ViewMenuTitle_menuOrden}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuNombre}"/>
+                        <h:outputText value="#{menuController.selected.menuNombre}" title="#{myBundle.ViewMenuTitle_menuNombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuUrl}"/>
+                        <h:outputText value="#{menuController.selected.menuUrl}" title="#{myBundle.ViewMenuTitle_menuUrl}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuIcono}"/>
+                        <h:outputText value="#{menuController.selected.menuIcono}" title="#{myBundle.ViewMenuTitle_menuIcono}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_menuEstado}"/>
+                        <h:outputText value="#{menuController.selected.menuEstado}" title="#{myBundle.ViewMenuTitle_menuEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MenuViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

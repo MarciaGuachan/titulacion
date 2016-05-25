@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstudianteCreateDlg" widgetVar="EstudianteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEstudianteTitle}" closeOnEscape="true">
+
+            <h:form id="EstudianteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{estudianteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuNombres}" for="estuNombres" />
+                        <p:inputText id="estuNombres" value="#{estudianteController.selected.estuNombres}" title="#{myBundle.CreateEstudianteTitle_estuNombres}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuApellidos}" for="estuApellidos" />
+                        <p:inputText id="estuApellidos" value="#{estudianteController.selected.estuApellidos}" title="#{myBundle.CreateEstudianteTitle_estuApellidos}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuCedula}" for="estuCedula" />
+                        <p:inputText id="estuCedula" value="#{estudianteController.selected.estuCedula}" title="#{myBundle.CreateEstudianteTitle_estuCedula}" size="14" maxlength="14"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuEmailUce}" for="estuEmailUce" />
+                        <p:inputText id="estuEmailUce" value="#{estudianteController.selected.estuEmailUce}" title="#{myBundle.CreateEstudianteTitle_estuEmailUce}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuEmailPersonal}" for="estuEmailPersonal" />
+                        <p:inputText id="estuEmailPersonal" value="#{estudianteController.selected.estuEmailPersonal}" title="#{myBundle.CreateEstudianteTitle_estuEmailPersonal}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuFechaNacimiento}" for="estuFechaNacimiento" />
+                        <p:calendar id="estuFechaNacimiento" pattern="MM/dd/yyyy" value="#{estudianteController.selected.estuFechaNacimiento}" title="#{myBundle.CreateEstudianteTitle_estuFechaNacimiento}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuGenereo}" for="estuGenereo" />
+                        <p:inputText id="estuGenereo" value="#{estudianteController.selected.estuGenereo}" title="#{myBundle.CreateEstudianteTitle_estuGenereo}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuTelefono}" for="estuTelefono" />
+                        <p:inputText id="estuTelefono" value="#{estudianteController.selected.estuTelefono}" title="#{myBundle.CreateEstudianteTitle_estuTelefono}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuCelular}" for="estuCelular" />
+                        <p:inputText id="estuCelular" value="#{estudianteController.selected.estuCelular}" title="#{myBundle.CreateEstudianteTitle_estuCelular}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_estuDireccion}" for="estuDireccion" />
+                        <p:inputText id="estuDireccion" value="#{estudianteController.selected.estuDireccion}" title="#{myBundle.CreateEstudianteTitle_estuDireccion}" size="110" maxlength="110"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEstudianteLabel_carrCodigo}" for="carrCodigo" />
+                        <p:selectOneMenu id="carrCodigo" value="#{estudianteController.selected.carrCodigo}"  converter="carreraConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{carreraController.items}"
+                                           var="carrCodigoItem"
+                                           itemValue="#{carrCodigoItem}"
+                                           itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estudianteController.saveNew}" value="#{myBundle.Save}" update="display,:EstudianteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EstudianteCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EstudianteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

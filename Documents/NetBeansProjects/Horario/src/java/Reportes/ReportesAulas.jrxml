@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15e4ade5-a6db-451c-87c2-f4989d425194">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     aula."edif_codigo" AS aula_edif_codigo,
+     aula."aula_nombre" AS aula_aula_nombre,
+     aula."aula_capacidad" AS aula_aula_capacidad,
+     aula."aula_descripcion" AS aula_aula_descripcion,
+     carrera."carr_nombre" AS carrera_carr_nombre
+FROM
+     "public"."carrera" carrera INNER JOIN "public"."aula" aula ON carrera."carr_codigo" = aula."carr_codigo"]]>
+	</queryString>
+	<field name="aula_edif_codigo" class="java.lang.Integer"/>
+	<field name="aula_aula_nombre" class="java.lang.String"/>
+	<field name="aula_aula_capacidad" class="java.lang.Integer"/>
+	<field name="aula_aula_descripcion" class="java.lang.String"/>
+	<field name="carrera_carr_nombre" class="java.lang.String"/>
+	<group name="carrera_carr_nombre">
+		<groupExpression><![CDATA[$F{carrera_carr_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="6e833b0e-bb39-4fce-b160-a51b9d52e547" style="SubTitle" x="7" y="16" width="506" height="24" forecolor="#006600"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{carrera_carr_nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="13825985-a754-421f-a7f8-141596802bdb" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="7e48d9d9-8b67-4afc-9ecd-21bc112c6942" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[REPORTE AULAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="49ffb929-634a-43fa-b408-94bc1477cbdb" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="56cb1553-e043-4a39-a836-9145c7ebcc22" style="Column header" x="0" y="19" width="138" height="15"/>
+				<textElement/>
+				<text><![CDATA[CodigoAula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d932998-1aed-4458-93f0-3f27a7c92ebe" style="Column header" x="138" y="19" width="138" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1f9a832b-448a-4344-82f6-3159048e0144" style="Column header" x="276" y="19" width="138" height="15"/>
+				<textElement/>
+				<text><![CDATA[Capacidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ead002c-d37b-4703-9062-b00bbcd5c844" style="Column header" x="414" y="19" width="138" height="15"/>
+				<textElement/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="113a7386-146f-4533-ad9a-9ec322aa3a45" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="e798bdf2-4f17-4439-8f3c-7bb4b38fe402" style="Detail" x="0" y="0" width="138" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{aula_edif_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3775ffe2-ef73-4f06-aa66-d3af8b9ee50c" style="Detail" x="138" y="0" width="138" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{aula_aula_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="33dbe8b0-e54f-420a-bbcf-912d7b6d5a86" style="Detail" x="276" y="0" width="138" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{aula_aula_capacidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9e8242b3-d522-4c24-8bef-10c09d545d9d" style="Detail" x="414" y="0" width="138" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{aula_aula_descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="dd53b8e6-eaa9-47f5-ae1c-4e2ce1c7dbd5" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a0ffd3f2-06f5-4d2e-9cbb-df5dca2db6e6" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="22224aa3-d44a-4614-a09c-499f6503050c" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="73157a24-5132-4a75-ac11-69e9d57f5f9f" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

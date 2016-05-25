@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DocenteListForm">
+
+        <p:panel header="#{myBundle.ListDocenteTitle}">
+            <p:contextMenu id="DocenteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DocenteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DocenteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DocenteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DocenteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DocenteMenuItem_docenteMateriaCursoCollection}" icon="ui-icon-search"  action="#{docenteController.navigateDocenteMateriaCursoCollection}" disabled="#{empty docenteController.selected.docenteMateriaCursoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.DocenteMenuItem_encuestaCollection}" icon="ui-icon-search"  action="#{docenteController.navigateEncuestaCollection}" disabled="#{empty docenteController.selected.encuestaCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.DocenteMenuItem_dediCodigo}" icon="ui-icon-search"  actionListener="#{docenteController.prepareDediCodigo}" update=":DedicacionViewForm" oncomplete="PF('DedicacionViewDialog').show()" disabled="#{empty docenteController.selected.dediCodigo}"/>  
+                <p:menuitem value="#{myBundle.DocenteMenuItem_titrCodigo}" icon="ui-icon-search"  actionListener="#{docenteController.prepareTitrCodigo}" update=":TipoTrabajoViewForm" oncomplete="PF('TipoTrabajoViewDialog').show()" disabled="#{empty docenteController.selected.titrCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{docenteController.items}"
+                         lazy="false"
+                         rowKey="#{item.doceCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{docenteController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{docenteController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.doceCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteDataTableContextMenu" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteDataTableContextMenu" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DocenteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.doceCodigo}" filterBy="#{item.doceCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceNombres}" filterBy="#{item.doceNombres}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceNombres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceNombres}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceApellidos}" filterBy="#{item.doceApellidos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceApellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceApellidos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceCedula}" filterBy="#{item.doceCedula}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceCedula}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCedula}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceEmailUce}" filterBy="#{item.doceEmailUce}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceEmailUce}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceEmailUce}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceEmailPersonal}" filterBy="#{item.doceEmailPersonal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDocenteTitle_doceEmailPersonal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceEmailPersonal}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.doceFechaNacimiento}" filterBy="#{item.doceFechaNacimiento}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_doceFechaNacimiento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceFechaNacimiento}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceGenero}" filterBy="#{item.doceGenero}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_doceGenero}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceGenero}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceTelefono}" filterBy="#{item.doceTelefono}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_doceTelefono}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceTelefono}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceCelular}" filterBy="#{item.doceCelular}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_doceCelular}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceCelular}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceDireccion}" filterBy="#{item.doceDireccion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_doceDireccion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceDireccion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.dediCodigo.dediDescripcion}" filterBy="#{item.dediCodigo.dediDescripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_dediCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.dediCodigo.dediDescripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.titrCodigo.titrDescripcion}" filterBy="#{item.titrCodigo.titrDescripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDocenteTitle_titrCodigo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.titrCodigo.titrDescripcion}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{docenteController.prepareCreate}" update=":DocenteCreateForm" oncomplete="PF('DocenteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DocenteViewForm" oncomplete="PF('DocenteViewDialog').show()" disabled="#{empty docenteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DocenteEditForm" oncomplete="PF('DocenteEditDialog').show()" disabled="#{empty docenteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{docenteController.delete}" update=":growl,datalist" disabled="#{empty docenteController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

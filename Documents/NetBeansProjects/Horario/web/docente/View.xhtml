@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocenteViewDlg" widgetVar="DocenteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDocenteTitle}" closeOnEscape="true">
+
+            <h:form id="DocenteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{docenteController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceCodigo}"/>
+                        <h:outputText value="#{docenteController.selected.doceCodigo}" title="#{myBundle.ViewDocenteTitle_doceCodigo}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceNombres}"/>
+                        <h:outputText value="#{docenteController.selected.doceNombres}" title="#{myBundle.ViewDocenteTitle_doceNombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceApellidos}"/>
+                        <h:outputText value="#{docenteController.selected.doceApellidos}" title="#{myBundle.ViewDocenteTitle_doceApellidos}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceCedula}"/>
+                        <h:outputText value="#{docenteController.selected.doceCedula}" title="#{myBundle.ViewDocenteTitle_doceCedula}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceEmailUce}"/>
+                        <h:outputText value="#{docenteController.selected.doceEmailUce}" title="#{myBundle.ViewDocenteTitle_doceEmailUce}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceEmailPersonal}"/>
+                        <h:outputText value="#{docenteController.selected.doceEmailPersonal}" title="#{myBundle.ViewDocenteTitle_doceEmailPersonal}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceFechaNacimiento}"/>
+                        <h:outputText value="#{docenteController.selected.doceFechaNacimiento}" title="#{myBundle.ViewDocenteTitle_doceFechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceGenero}"/>
+                        <h:outputText value="#{docenteController.selected.doceGenero}" title="#{myBundle.ViewDocenteTitle_doceGenero}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceTelefono}"/>
+                        <h:outputText value="#{docenteController.selected.doceTelefono}" title="#{myBundle.ViewDocenteTitle_doceTelefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceCelular}"/>
+                        <h:outputText value="#{docenteController.selected.doceCelular}" title="#{myBundle.ViewDocenteTitle_doceCelular}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_doceDireccion}"/>
+                        <h:outputText value="#{docenteController.selected.doceDireccion}" title="#{myBundle.ViewDocenteTitle_doceDireccion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_dediCodigo}"/>
+                        <h:outputText value="#{docenteController.selected.dediCodigo.dediDescripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDocenteLabel_titrCodigo}"/>
+                        <h:outputText value="#{docenteController.selected.titrCodigo.titrDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DocenteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

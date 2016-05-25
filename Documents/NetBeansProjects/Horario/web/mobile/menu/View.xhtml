@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MenuViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewMenuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MenuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MenuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{menuController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuCodigo}"/>
+                            <h:outputText value="#{menuController.selected.menuCodigo}" title="#{myBundle.ViewMenuTitle_menuCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuPadre}"/>
+                            <h:outputText value="#{menuController.selected.menuPadre}" title="#{myBundle.ViewMenuTitle_menuPadre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuNivel}"/>
+                            <h:outputText value="#{menuController.selected.menuNivel}" title="#{myBundle.ViewMenuTitle_menuNivel}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuOrden}"/>
+                            <h:outputText value="#{menuController.selected.menuOrden}" title="#{myBundle.ViewMenuTitle_menuOrden}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuNombre}"/>
+                            <h:outputText value="#{menuController.selected.menuNombre}" title="#{myBundle.ViewMenuTitle_menuNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuUrl}"/>
+                            <h:outputText value="#{menuController.selected.menuUrl}" title="#{myBundle.ViewMenuTitle_menuUrl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuIcono}"/>
+                            <h:outputText value="#{menuController.selected.menuIcono}" title="#{myBundle.ViewMenuTitle_menuIcono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewMenuLabel_menuEstado}"/>
+                            <h:outputText value="#{menuController.selected.menuEstado}" title="#{myBundle.ViewMenuTitle_menuEstado}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

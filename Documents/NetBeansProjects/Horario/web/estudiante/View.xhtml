@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstudianteViewDlg" widgetVar="EstudianteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEstudianteTitle}" closeOnEscape="true">
+
+            <h:form id="EstudianteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{estudianteController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuCodigo}"/>
+                        <h:outputText value="#{estudianteController.selected.estuCodigo}" title="#{myBundle.ViewEstudianteTitle_estuCodigo}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuNombres}"/>
+                        <h:outputText value="#{estudianteController.selected.estuNombres}" title="#{myBundle.ViewEstudianteTitle_estuNombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuApellidos}"/>
+                        <h:outputText value="#{estudianteController.selected.estuApellidos}" title="#{myBundle.ViewEstudianteTitle_estuApellidos}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuCedula}"/>
+                        <h:outputText value="#{estudianteController.selected.estuCedula}" title="#{myBundle.ViewEstudianteTitle_estuCedula}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuEmailUce}"/>
+                        <h:outputText value="#{estudianteController.selected.estuEmailUce}" title="#{myBundle.ViewEstudianteTitle_estuEmailUce}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuEmailPersonal}"/>
+                        <h:outputText value="#{estudianteController.selected.estuEmailPersonal}" title="#{myBundle.ViewEstudianteTitle_estuEmailPersonal}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuFechaNacimiento}"/>
+                        <h:outputText value="#{estudianteController.selected.estuFechaNacimiento}" title="#{myBundle.ViewEstudianteTitle_estuFechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuGenereo}"/>
+                        <h:outputText value="#{estudianteController.selected.estuGenereo}" title="#{myBundle.ViewEstudianteTitle_estuGenereo}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuTelefono}"/>
+                        <h:outputText value="#{estudianteController.selected.estuTelefono}" title="#{myBundle.ViewEstudianteTitle_estuTelefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuCelular}"/>
+                        <h:outputText value="#{estudianteController.selected.estuCelular}" title="#{myBundle.ViewEstudianteTitle_estuCelular}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_estuDireccion}"/>
+                        <h:outputText value="#{estudianteController.selected.estuDireccion}" title="#{myBundle.ViewEstudianteTitle_estuDireccion}"/>
+
+                        <h:outputText value="#{myBundle.ViewEstudianteLabel_carrCodigo}"/>
+                        <h:outputText value="#{estudianteController.selected.carrCodigo.carrDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EstudianteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
