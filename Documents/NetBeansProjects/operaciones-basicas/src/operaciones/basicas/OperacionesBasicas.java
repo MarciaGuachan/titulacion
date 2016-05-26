@@ -23,6 +23,7 @@ public class OperacionesBasicas {
          int resultado2;
         int numero1 = 0;
         int numero2 = 0;
+        int resultado3;
  
        System.out.println("Introduce el primer número:");			
        numero1 = reader.nextInt();
@@ -31,10 +32,12 @@ public class OperacionesBasicas {
        numero2 = reader.nextInt();
        resultado = numero1+numero2;
        resultado2 = numero1-numero2;
+       resultado3 = numero1*numero2;
       
        System.out.println("La suma es " + numero1 + " + " + numero2 + " = " + resultado);
        
        System.out.println("La suma es " + numero1 + " - " + numero2 + " = " + resultado2);
+         System.out.println("La suma es " + numero1 + " * " + numero2 + " = " + resultado3);
         
         
         // TODO code application logic here
